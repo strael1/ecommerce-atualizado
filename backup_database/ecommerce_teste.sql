@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: 26-Jan-2020 às 03:07
+-- Generation Time: 26-Jan-2020 às 04:02
 -- Versão do servidor: 5.7.26
 -- versão do PHP: 7.2.18
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `banco_para_teste_cassiano`
+-- Database: `ecommerce_teste`
 --
 
 DELIMITER $$
@@ -272,7 +272,7 @@ CREATE TABLE IF NOT EXISTS `tb_addresses` (
   `dtregister` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`idaddress`),
   KEY `fk_addresses_persons_idx` (`idperson`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `tb_addresses`
@@ -282,7 +282,9 @@ INSERT INTO `tb_addresses` (`idaddress`, `idperson`, `desaddress`, `desnumber`, 
 (16, 19, 'Avenida das Américas 1510', '', '', 'Rio de Janeiro', 'RJ', 'Brasil', '22640900', 'Barra da Tijuca', '2020-01-21 20:30:51'),
 (17, 19, 'Avenida das Américas 1510', '197', 'casa', 'Rio de Janeiro', 'RJ', 'Brasil', '22640900', 'Barra da Tijuca', '2020-01-21 20:31:48'),
 (18, 19, 'Avenida das Américas 1510', '', '', 'Rio de Janeiro', 'RJ', 'Brasil', '22640900', 'Barra da Tijuca', '2020-01-21 20:34:51'),
-(19, 20, 'Avenida das Américas 1510', '', '', 'Rio de Janeiro', 'RJ', 'Brasil', '22640900', 'Barra da Tijuca', '2020-01-23 14:26:58');
+(19, 20, 'Avenida das Américas 1510', '', '', 'Rio de Janeiro', 'RJ', 'Brasil', '22640900', 'Barra da Tijuca', '2020-01-23 14:26:58'),
+(20, 20, 'Avenida das Américas', '197', 'atÃ© 1600 - lado par', 'Rio de Janeiro', 'RJ', 'Brasil', '22640100', 'Barra da Tijuca', '2020-01-26 02:00:51'),
+(21, 20, 'Avenida das Américas', '197', 'atÃ© 1600 - lado par', 'Rio de Janeiro', 'RJ', 'Brasil', '22640100', 'Barra da Tijuca', '2020-01-26 02:02:55');
 
 -- --------------------------------------------------------
 
@@ -301,7 +303,7 @@ CREATE TABLE IF NOT EXISTS `tb_carts` (
   `dtregister` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`idcart`),
   KEY `FK_carts_users_idx` (`iduser`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `tb_carts`
@@ -332,7 +334,8 @@ INSERT INTO `tb_carts` (`idcart`, `dessessionid`, `iduser`, `deszipcode`, `vlfre
 (24, '4m8veo5seu21ge44lkmqtuij1h', NULL, '22640900', '0.00', 0, '2020-01-23 14:16:04'),
 (25, 'o1ecsciiq21ab282jq2aettai8', NULL, NULL, NULL, NULL, '2020-01-23 14:27:27'),
 (26, 'laora8g02orlml99aov451ovph', NULL, NULL, NULL, NULL, '2020-01-23 19:22:19'),
-(27, 'hchgcekgdp6d8s0evijff4ogs4', NULL, NULL, NULL, NULL, '2020-01-23 19:30:21');
+(27, 'hchgcekgdp6d8s0evijff4ogs4', NULL, NULL, NULL, NULL, '2020-01-23 19:30:21'),
+(28, '5sek387b4masi780f7s92qah4h', NULL, '22640100', '85.16', 6, '2020-01-26 01:56:40');
 
 -- --------------------------------------------------------
 
@@ -350,7 +353,7 @@ CREATE TABLE IF NOT EXISTS `tb_cartsproducts` (
   PRIMARY KEY (`idcartproduct`),
   KEY `FK_cartsproducts_carts_idx` (`idcart`),
   KEY `fk_cartsproducts_products_idx` (`idproduct`)
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `tb_cartsproducts`
@@ -396,7 +399,8 @@ INSERT INTO `tb_cartsproducts` (`idcartproduct`, `idcart`, `idproduct`, `dtremov
 (39, 20, 1, '2020-01-21 17:55:33', '2020-01-21 20:29:31'),
 (40, 20, 2, '2020-01-21 17:55:40', '2020-01-21 20:34:37'),
 (41, 24, 1, NULL, '2020-01-23 14:17:09'),
-(42, 24, 1, NULL, '2020-01-23 14:17:47');
+(42, 24, 1, NULL, '2020-01-23 14:17:47'),
+(43, 28, 4, NULL, '2020-01-26 01:59:22');
 
 -- --------------------------------------------------------
 
@@ -453,14 +457,16 @@ CREATE TABLE IF NOT EXISTS `tb_orders` (
   KEY `fk_orders_ordersstatus_idx` (`idstatus`),
   KEY `fk_orders_carts_idx` (`idcart`),
   KEY `fk_orders_addresses_idx` (`idaddress`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `tb_orders`
 --
 
 INSERT INTO `tb_orders` (`idorder`, `idcart`, `iduser`, `idstatus`, `idaddress`, `vltotal`, `dtregister`) VALUES
-(1, 24, 20, 1, 19, '600.00', '2020-01-23 14:26:58');
+(1, 24, 20, 1, 19, '600.00', '2020-01-23 14:26:58'),
+(2, 28, 20, 1, 20, '585.16', '2020-01-26 02:00:52'),
+(3, 28, 20, 1, 21, '585.16', '2020-01-26 02:02:56');
 
 -- --------------------------------------------------------
 
@@ -539,8 +545,10 @@ CREATE TABLE IF NOT EXISTS `tb_products` (
 
 INSERT INTO `tb_products` (`idproduct`, `desproduct`, `vlprice`, `vlwidth`, `vlheight`, `vllength`, `vlweight`, `desurl`, `dtregister`, `descricaoprod`) VALUES
 (1, 'MAC book pro', '300.00', '1.50', '1.30', '0.00', '0.00', 'Para a sua casa', '2020-01-22 15:57:46', '                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lorem lorem, posuere a tellus eu, hendrerit tempus quam. Praesent sollicitudin luctus molestie. In hac habitasse platea dictumst. Duis viverra, diam sit amet varius condimentum, massa justo facilisis nulla, sed lobortis metus dolor at urna. Nam ac varius ante, sit amet sodales sem. Donec rhoncus turpis vitae est blandit pretium. Curabitur id urna sagittis, feugiat lacus in, semper nulla. Nulla elementum varius lacus, laoreet molestie purus pharetra ac. Donec auctor bibendum fringilla. Ut sit amet enim volutpat, porttitor turpis quis, sodales augue.\r\n              '),
-(4, 'Recibo para sua empresa', '90.00', '1.50', '1.30', '1.50', '0.30', 'Para a sua empresa', '2020-01-26 03:02:37', 'Para a sua empresa, use bastante no seu tempo.                \r\n              '),
-(5, 'Moto G4 - Com tela de led', '2000.00', '3.45', '2.25', '2.24', '3.24', 'Motorola', '2020-01-26 03:06:16', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sapien arcu, lacinia et massa et, tincidunt molestie lacus. Morbi ornare aliquam libero in pellentesque. Phasellus convallis, justo id faucibus lacinia, lacus neque efficitur ante, in rutrum sapien urna eget velit. Integer dolor nisl, iaculis at tincidunt vel, viverra ut ante. Etiam sed euismod libero. Vestibulum volutpat urna mauris, ac sodales sem commodo ac. Phasellus quis tellus consequat, vehicula mi id, posuere libero. Vestibulum ultricies felis augue, et sagittis nunc elementum non. Aliquam dictum augue eu nulla hendrerit, et fermentum metus scelerisque. Pellentesque ac semper augue. Morbi non blandit lectus. Nunc gravida eleifend turpis ut viverra. Donec laoreet lorem id ipsum scelerisque placerat. Vestibulum sapien libero, eleifend a erat eu, iaculis sagittis ipsum.    \r\n              ');
+(2, 'bolsa de costa', '12.00', '1.00', '1.00', '1.00', '1.00', 'bolsa de costa', '2020-01-22 16:02:45', 'Bolsa de costa\r\n              '),
+(3, 'carro d', '3200.00', '1.50', '1.30', '1.50', '0.30', 'Andar de carro', '2020-01-23 19:24:01', 'Compre o seu carro zero, novo e zerado.\r\n              '),
+(4, 'Recibo', '500.00', '1.50', '1.30', '1.50', '0.30', 'Para a sua empresa', '2020-01-26 01:58:43', 'Recibo para a sua empresa.                \r\n              '),
+(5, 'Ipda 32GB Wi-fi Tela 9,7\" CÃ¢mera 8MP Prata - Apple', '2000.00', '1.50', '1.30', '1.50', '0.30', 'Mac book pro', '2020-01-26 03:45:04', 'Mac book pro               \r\n              ');
 
 -- --------------------------------------------------------
 
@@ -591,7 +599,7 @@ INSERT INTO `tb_users` (`iduser`, `idperson`, `deslogin`, `despassword`, `inadmi
 (12, 12, 'strael12', '$2y$12$WQ/Gt1DADI3q/ycu4S0douv1raSNz2WbELutlAGGhbZ/oReZZklOm', 1, '2019-12-03 21:39:53'),
 (18, 18, 'serrinha', '$2y$12$nfrhv/QXEzhLJpvAV7B6oOIJ9Rm7d9Tv1hWQzTwOVpaTcw.ThaH2C', 1, '2020-01-21 20:25:44'),
 (19, 19, 'cassiano_filho@gmail.com', '$2y$12$wxyDFM0kfOL6MgmwNq6o1.joymqIkxuFftVAxeBZ2hxc53H2McJPG', 0, '2020-01-21 20:30:41'),
-(20, 20, 'andreza.j2016@hotmail.com', '$2y$12$i1qqOVXDldbgHxygdjqfcuPkHNgpdZyANbnEyJwwcqpgBdhMSnY.K', 0, '2020-01-23 14:18:31');
+(20, 20, 'andreza.j2016@hotmail.com', '$2y$12$E.Rzh6a2AFkwyTa1p5Chaenr.G5xc2YrM4piIytqNZ6.zWgwgNi8G', 0, '2020-01-23 14:18:31');
 
 -- --------------------------------------------------------
 
@@ -638,22 +646,54 @@ CREATE TABLE IF NOT EXISTS `tb_userspasswordsrecoveries` (
 -- Limitadores para a tabela `tb_addresses`
 --
 ALTER TABLE `tb_addresses`
-  ADD CONSTRAINT `fk_addresses_persons` FOREIGN KEY (`idperson`) REFERENCES `tb_persons` (`idperson`) ON DELETE CASCADE;
+  ADD CONSTRAINT `fk_addresses_persons` FOREIGN KEY (`idperson`) REFERENCES `tb_persons` (`idperson`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Limitadores para a tabela `tb_carts`
 --
 ALTER TABLE `tb_carts`
-  ADD CONSTRAINT `fk_carts_users` FOREIGN KEY (`iduser`) REFERENCES `tb_users` (`iduser`) ON DELETE CASCADE;
+  ADD CONSTRAINT `fk_carts_users` FOREIGN KEY (`iduser`) REFERENCES `tb_users` (`iduser`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Limitadores para a tabela `tb_cartsproducts`
+--
+ALTER TABLE `tb_cartsproducts`
+  ADD CONSTRAINT `fk_cartsproducts_carts` FOREIGN KEY (`idcart`) REFERENCES `tb_carts` (`idcart`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_cartsproducts_products` FOREIGN KEY (`idproduct`) REFERENCES `tb_products` (`idproduct`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Limitadores para a tabela `tb_orders`
 --
 ALTER TABLE `tb_orders`
-  ADD CONSTRAINT `fk_orders_addresses` FOREIGN KEY (`idaddress`) REFERENCES `tb_addresses` (`idaddress`) ON DELETE CASCADE,
-  ADD CONSTRAINT `fk_orders_carts` FOREIGN KEY (`idcart`) REFERENCES `tb_carts` (`idcart`) ON DELETE CASCADE,
-  ADD CONSTRAINT `fk_orders_ordersstatus` FOREIGN KEY (`idstatus`) REFERENCES `tb_ordersstatus` (`idstatus`) ON DELETE CASCADE,
-  ADD CONSTRAINT `fk_orders_users` FOREIGN KEY (`iduser`) REFERENCES `tb_users` (`iduser`) ON DELETE CASCADE;
+  ADD CONSTRAINT `fk_orders_addresses` FOREIGN KEY (`idaddress`) REFERENCES `tb_addresses` (`idaddress`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_orders_carts` FOREIGN KEY (`idcart`) REFERENCES `tb_carts` (`idcart`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_orders_ordersstatus` FOREIGN KEY (`idstatus`) REFERENCES `tb_ordersstatus` (`idstatus`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_orders_users` FOREIGN KEY (`iduser`) REFERENCES `tb_users` (`iduser`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Limitadores para a tabela `tb_productscategories`
+--
+ALTER TABLE `tb_productscategories`
+  ADD CONSTRAINT `fk_productscategories_categories` FOREIGN KEY (`idcategory`) REFERENCES `tb_categories` (`idcategory`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_productscategories_products` FOREIGN KEY (`idproduct`) REFERENCES `tb_products` (`idproduct`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Limitadores para a tabela `tb_users`
+--
+ALTER TABLE `tb_users`
+  ADD CONSTRAINT `fk_users_persons` FOREIGN KEY (`idperson`) REFERENCES `tb_persons` (`idperson`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Limitadores para a tabela `tb_userslogs`
+--
+ALTER TABLE `tb_userslogs`
+  ADD CONSTRAINT `fk_userslogs_users` FOREIGN KEY (`iduser`) REFERENCES `tb_users` (`iduser`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Limitadores para a tabela `tb_userspasswordsrecoveries`
+--
+ALTER TABLE `tb_userspasswordsrecoveries`
+  ADD CONSTRAINT `fk_userspasswordsrecoveries_users` FOREIGN KEY (`iduser`) REFERENCES `tb_users` (`iduser`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

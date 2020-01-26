@@ -7,9 +7,10 @@ class Sql {
 	const HOSTNAME = "127.0.0.1";
 	const USERNAME = "root";
 	const PASSWORD = "";
-	/*const DBNAME = "ecommerce_teste";*/
-	// const DBNAME = "banco_para_teste_cassiano";
-    const DBNAME = "data_base_novo_v2";
+	// const DBNAME = "ecommerce_teste";
+	// // const DBNAME = "banco_para_teste_cassiano";
+    // const DBNAME = "data_base_novo_v2";
+    const DBNAME = "banco_novo_v3";
 
 	private $conn;
 	
